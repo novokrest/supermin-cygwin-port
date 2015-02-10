@@ -22,7 +22,7 @@
  * very much at all, except this program, and some kernel modules.
  */
 
-#include <config.h>
+#include "config.h"
 
 #include <stdio.h>
 #include <stdlib.h>

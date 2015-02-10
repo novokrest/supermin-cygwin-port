@@ -10,8 +10,30 @@
     configure: error: in `/home/novokrestWin/supermin-5.1.10':
     configure: error: mke2fs program not found
 
-solution: export PATH=/usr/sbin:${PATH}
+solution: 
+    export PATH=/usr/sbin:${PATH}
 
 5. run: ./configure
 
     status: OK
+
+6. run: make
+
+    glob-c.c:38:3: ошибка: «GLOB_PERIOD» undeclared here (not in a function)
+       GLOB_PERIOD,
+
+solution:
+    glob-c.c: comment GLOB_PERIOD in flags[]
+
+7. run make
+
+error:
+    gcc -std=gnu99 -g -O2    init.c   -o init
+    init.c:25:20: фатальная ошибка: config.h: No such file or directory
+     #include <config.h>
+
+solution:
+    couldn't inderstand why from Makefile not appropriate command executed.
+    Exprected: gcc -std=gnu99 -DHAVE_CONFIG_H -I. -I..    -static -g -O2 -MT init-init.o -MD -MP -MF .deps/init-init.Tpo -c -o init-init.o `test -f 'init.c' || echo './'`init.c
+
+    cp config.h to src, change #include <config.h> to #include "config.h"

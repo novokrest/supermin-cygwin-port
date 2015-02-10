@@ -35,7 +35,7 @@ static int flags[] = {
   GLOB_NOSORT,
   GLOB_NOCHECK,
   GLOB_NOESCAPE,
-  GLOB_PERIOD,
+//  GLOB_PERIOD,
 };
 
 value
