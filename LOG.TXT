@@ -37,3 +37,98 @@ solution:
     Exprected: gcc -std=gnu99 -DHAVE_CONFIG_H -I. -I..    -static -g -O2 -MT init-init.o -MD -MP -MF .deps/init-init.Tpo -c -o init-init.o `test -f 'init.c' || echo './'`init.c
 
     cp config.h to src, change #include <config.h> to #include "config.h"
+
+8. run make
+
+error:
+    gcc -std=gnu99 -g -O2    init.c   -o init
+    init.c:43:24: фатальная ошибка: asm/unistd.h: No such file or directory
+     #include <asm/unistd.h>
+
+solution:
+    comment //#include <asm/unistd.h>
+
+9. run make
+
+error:
+gcc -std=gnu99 -g -O2    init.c   -o init
+init.c: В функции «main»:
+init.c:123:31: предупреждение: при передаче аргумента 3 «mount» указатель преобразуется в целое без приведения типа
+   if (mount ("sysfs", "/sys", "sysfs", 0, "") == -1) {
+                               ^
+In file included from init.c:39:0:
+/usr/include/sys/mount.h:50:5: замечание: expected «unsigned int» but argument is of type «char *»
+ int mount (const char *, const char *, unsigned __flags);
+     ^
+init.c:123:7: ошибка: слишком много аргументов в вызове функции «mount»
+   if (mount ("sysfs", "/sys", "sysfs", 0, "") == -1) {
+       ^
+In file included from init.c:39:0:
+/usr/include/sys/mount.h:50:5: замечание: declared here
+ int mount (const char *, const char *, unsigned __flags);
+     ^
+init.c:226:3: предупреждение: неявная декларация функции «ioctl» [-Wimplicit-function-declaration]
+   if (ioctl (0, TIOCSCTTY, 1) == -1)
+   ^
+init.c:242:44: ошибка: «MS_NOATIME» undeclared (first use in this function)
+   if (mount ("/dev/root", "/root", "ext2", MS_NOATIME, "") == -1) {
+                                            ^
+init.c:242:44: замечание: each undeclared identifier is reported only once for each function it appears in
+init.c:242:36: предупреждение: при передаче аргумента 3 «mount» указатель преобразуется в целое без приведения типа
+   if (mount ("/dev/root", "/root", "ext2", MS_NOATIME, "") == -1) {
+                                    ^
+In file included from init.c:39:0:
+/usr/include/sys/mount.h:50:5: замечание: expected «unsigned int» but argument is of type «char *»
+ int mount (const char *, const char *, unsigned __flags);
+     ^
+init.c:242:7: ошибка: слишком много аргументов в вызове функции «mount»
+   if (mount ("/dev/root", "/root", "ext2", MS_NOATIME, "") == -1) {
+       ^
+In file included from init.c:39:0:
+/usr/include/sys/mount.h:50:5: замечание: declared here
+ int mount (const char *, const char *, unsigned __flags);
+     ^
+init.c: В функции «mount_proc»:
+init.c:458:33: предупреждение: при передаче аргумента 3 «mount» указатель преобразуется в целое без приведения типа
+     if (mount ("proc", "/proc", "proc", 0, "") == -1) {
+                                 ^
+In file included from init.c:39:0:
+/usr/include/sys/mount.h:50:5: замечание: expected «unsigned int» but argument is of type «char *»
+ int mount (const char *, const char *, unsigned __flags);
+     ^
+init.c:458:9: ошибка: слишком много аргументов в вызове функции «mount»
+     if (mount ("proc", "/proc", "proc", 0, "") == -1) {
+         ^
+In file included from init.c:39:0:
+/usr/include/sys/mount.h:50:5: замечание: declared here
+ int mount (const char *, const char *, unsigned __flags);
+
+solution:
+    change arguments in "mount" function call
+
+10. run: make
+
+error:
+gcc -std=gnu99 -g -O2    init.c   -o init
+init.c: В функции «main»:
+init.c:226:3: предупреждение: неявная декларация функции «ioctl» [-Wimplicit-function-declaration]
+   if (ioctl (0, TIOCSCTTY, 1) == -1)
+   ^
+/tmp/ccjk5XNo.o: In function `insmod':
+/home/novokrestWin/supermin-5.1.10/src/init.c:384: undefined reference to `gzopen'
+/home/novokrestWin/supermin-5.1.10/src/init.c:384:(.text.startup+0x28d): relocation truncated to fit: R_X86_64_PC32 against undefined symbol `gzopen'
+/home/novokrestWin/supermin-5.1.10/src/init.c:389: undefined reference to `gzread'
+/home/novokrestWin/supermin-5.1.10/src/init.c:389:(.text.startup+0x2f4): relocation truncated to fit: R_X86_64_PC32 against undefined symbol `gzread'
+/home/novokrestWin/supermin-5.1.10/src/init.c:406: undefined reference to `gzclose'
+/home/novokrestWin/supermin-5.1.10/src/init.c:406:(.text.startup+0x30c): relocation truncated to fit: R_X86_64_PC32 against undefined symbol `gzclose'
+/home/novokrestWin/supermin-5.1.10/src/init.c:436: undefined reference to `init_module'
+/home/novokrestWin/supermin-5.1.10/src/init.c:436:(.text.startup+0x31e): relocation truncated to fit: R_X86_64_PC32 against undefined symbol `init_module'
+collect2: ошибка: выполнение ld завершилось с кодом возврата 1
+
+
+solution:
+    add #include<sys/ioctl.h> to init.c
+    install cygwin-package: zlib
+    export PATH=/usr/local/lib:/usr/lib:${PATH}
+
+    so, it's necessary to understand what's happening in Makefile...

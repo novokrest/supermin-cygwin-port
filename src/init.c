@@ -39,8 +39,9 @@
 #include <sys/mount.h>
 #include <sys/stat.h>
 #include <sys/wait.h>
+#include <sys/ioctl.h>
 
-#include <asm/unistd.h>
+//#include <asm/unistd.h>
 
 #ifdef HAVE_ZLIB_STATIC
 #include <zlib.h>
@@ -120,7 +121,7 @@ main ()
   /* Mount /sys. */
   if (verbose)
     fprintf (stderr, "supermin: mounting /sys\n");
-  if (mount ("sysfs", "/sys", "sysfs", 0, "") == -1) {
+  if (mount ("sysfs", "/sys", 0) == -1) {
     perror ("mount: /sys");
     exit (EXIT_FAILURE);
   }
@@ -239,7 +240,7 @@ main ()
   /* Mount new root and chroot to it. */
   if (verbose)
     fprintf (stderr, "supermin: mounting new root on /root\n");
-  if (mount ("/dev/root", "/root", "ext2", MS_NOATIME, "") == -1) {
+  if (mount ("/dev/root", "/root", 0) == -1) {
     perror ("mount: /root");
     exit (EXIT_FAILURE);
   }
@@ -455,7 +456,7 @@ mount_proc (void)
     if (verbose)
       fprintf (stderr, "supermin: mounting /proc\n");
 
-    if (mount ("proc", "/proc", "proc", 0, "") == -1) {
+    if (mount("proc", "/proc", MOUNT_PROC) == -1) {
       perror ("mount: /proc");
       /* Non-fatal. */
     }
