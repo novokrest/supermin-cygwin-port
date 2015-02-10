@@ -1,1 +1,6 @@
-download supermin-5.1.10.tar.gz from http://libguestfs.org/download/supermin/
+
+1. download, compile and install "ocaml" from http://caml.inria.fr/pub/distrib/ocaml-4.02/ocaml-4.02.1.tar.gz 
+
+2. download, compile and install "findlib" from http://download.camlcity.org/download/findlib-1.5.5.tar.gz
+
+3. download supermin-5.1.10.tar.gz from http://libguestfs.org/download/supermin/
