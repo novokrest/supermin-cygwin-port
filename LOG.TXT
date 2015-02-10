@@ -1,0 +1,1 @@
+download supermin-5.1.10.tar.gz from http://libguestfs.org/download/supermin/
