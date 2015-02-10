@@ -4,3 +4,14 @@
 2. download, compile and install "findlib" from http://download.camlcity.org/download/findlib-1.5.5.tar.gz
 
 3. download supermin-5.1.10.tar.gz from http://libguestfs.org/download/supermin/
+
+4. run ./configure
+
+    configure: error: in `/home/novokrestWin/supermin-5.1.10':
+    configure: error: mke2fs program not found
+
+solution: export PATH=/usr/sbin:${PATH}
+
+5. run: ./configure
+
+    status: OK
