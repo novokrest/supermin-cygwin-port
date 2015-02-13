@@ -131,4 +131,5 @@ solution:
     install cygwin-package: zlib
     export PATH=/usr/local/lib:/usr/lib:${PATH}
 
-    so, it's necessary to understand what's happening in Makefile...
+    WHY init.c compile without additional flags?! so, it's necessary to understand what's happening in Makefile...
+    how implement init_module?
