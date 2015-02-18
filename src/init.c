@@ -434,12 +434,12 @@ insmod (const char *filename)
   close (fd);
 #endif
 
-  if (init_module (buf, size, "") != 0) {
-    fprintf (stderr, "insmod: init_module: %s: %s\n", filename, moderror (errno));
-    /* However ignore the error because this can just happen because
-     * of a missing device.
-     */
-  }
+  //if (init_module (buf, size, "") != 0) {
+  //  fprintf (stderr, "insmod: init_module: %s: %s\n", filename, moderror (errno));
+  //  /* However ignore the error because this can just happen because
+  //   * of a missing device.
+  //   */
+  //}
 
 #ifdef HAVE_ZLIB_STATIC
   free (buf);
